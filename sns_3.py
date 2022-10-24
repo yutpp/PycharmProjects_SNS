@@ -1,4 +1,3 @@
-# f = open('spot.txt', 'w+', encoding='UTF-8')
 import os
 import numpy as np
 import pandas as pd
@@ -7,7 +6,6 @@ col = 137
 matrix = np.zeros((row,col))
 with open('spot2.txt', encoding='UTF-8') as f:  # 打开文件
     data = f.read()  # 读取文件
-    print(data)
     string=data.strip("\'")
     spot = string.split(',')
     print(spot)
@@ -18,7 +16,6 @@ with open('spot2.txt', encoding='UTF-8') as f:  # 打开文件
             spot.insert(i, spot2)  # 把最大年龄对应的姓名插入到第一个
             spot.__delitem__(i + 1)
     print(spot)
-    print(len(spot))
 
 def read_path(file_pathname):
     # 遍历该目录下的所有文件
