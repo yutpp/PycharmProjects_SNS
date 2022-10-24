@@ -7,18 +7,18 @@ Matrix = np.zeros((row,col))
 with open('spot3.txt', encoding='UTF-8') as f:  # 打开文件
     data = f.read()  # 读取文件
     print(data)
-    string=data.strip("\'")
+    string=data.strip("\'")#把字符串头尾的单引号删除
     print(string)
     print(len(string))
-    spot=[x.strip().split('/')for x in string.split(',')]
+    spot=[x.strip().split('/')for x in string.split(',')]#生成景点的二维数组，因为有的景点有多种名称，
     print(spot)
 
+#如果某个景点的列表中，有一个景点名称在文章里出现，则返回TRUE
 def isInArticle(article,list):
-    for x in list:
-        if x in article:
+    for lst in list:
+        if lst in article:
             return True
     return False
-
 
 def read_path(file_pathname):
     # 遍历该目录下的所有文件
@@ -29,16 +29,15 @@ def read_path(file_pathname):
         f2 = open(path2, 'w', encoding='utf-8')
         for line in f1.readlines():
             if line == '\n':
-                line = line.strip('\n')
+                line = line.strip('\n')#删除文章中的空白行
             f2.write(line)
         f2.close()
         f2 = open(path2, 'r', encoding='utf-8')
         data1 = f2.read()
         for i in range(len(spot)):
-            if isInArticle(data1,spot[i]):
-                for j in range(len(spot)) :
-                    if i != j and isInArticle(data1,spot[j]):
-                        Matrix[i][j] +=1
+            for j in range(len(spot)) :
+                if i != j and isInArticle(data1,spot[i]) and isInArticle(data1,spot[j]):
+                    Matrix[i][j] +=1
 
 
 read_path(r'D:\PycharmProjects\SNS\articles')
