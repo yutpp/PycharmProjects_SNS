@@ -1,9 +1,16 @@
 import os
 import numpy as np
 import pandas as pd
+import pickle
 row = 137
 col = 137
 Matrix = np.zeros((row,col))
+
+
+# f = open('beijing_daily.pkl', 'rb')
+# content = pickle.load(f)
+# print(content) # content就是原数据
+
 with open('spot3.txt', encoding='UTF-8') as f:  # 打开文件
     data = f.read()  # 读取文件
     print(data)
@@ -23,8 +30,8 @@ def isInArticle(article,list):
 def read_path(file_pathname):
     # 遍历该目录下的所有文件
     for filename in os.listdir(file_pathname):
-        path1 = os.path.join('/articles', filename)
-        path2=os.path.join('/articles_3', filename)
+        path1 = os.path.join('articles', filename)
+        path2=os.path.join('articles_3', filename)
         f1 = open(path1, 'r',encoding='utf-8')
         f2 = open(path2, 'w', encoding='utf-8')
         for line in f1.readlines():
@@ -40,7 +47,7 @@ def read_path(file_pathname):
                     Matrix[i][j] +=1
 
 
-read_path('/articles')
+read_path('articles')
 print(Matrix)
 data2 = pd.DataFrame(Matrix)
 data2.to_csv('matrix5.csv', index=0, columns=None, encoding='utf-8')
